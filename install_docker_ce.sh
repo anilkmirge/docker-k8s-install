@@ -20,6 +20,8 @@ sudo yum install docker-ce docker-ce-cli
 
 sudo systemctl start docker
 
+echo 'Docker also provides convenience scripts at get.docker.com and test.docker.com for installing edge and testing versions of Docker Engine - Community into development environments quickly and non-interactively.'
+
 # Verify that Docker Engine is installed correctly by running the apache server image.
 
 sudo setenforce 0
@@ -31,5 +33,3 @@ sudo docker ps
 ss -tunap | grep 8080
 
 curl http://localhost:8080
-
-echo 'Docker also provides convenience scripts at get.docker.com and test.docker.com for installing edge and testing versions of Docker Engine - Community into development environments quickly and non-interactively.'
