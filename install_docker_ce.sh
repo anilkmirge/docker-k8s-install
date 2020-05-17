@@ -23,11 +23,11 @@ sudo systemctl start docker
 # Verify that Docker Engine is installed correctly by running the apache server image.
 
 sudo setenforce 0
-mkdir -p /var/www/html
+sudo mkdir -p /var/www/html
 echo hello from docker >> /var/www/html/index.html
-docker run -d -p 8080:80 --name="myapache" -v /var/www/html:/var/www/html httpd
+sudo docker run -d -p 8080:80 --name="myapache" -v /var/www/html:/var/www/html httpd
 
-docker ps
+sudo docker ps
 ss -tunap | grep 8080
 
 curl http://localhost:8080
