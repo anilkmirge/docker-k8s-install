@@ -20,8 +20,16 @@ sudo yum install docker-ce docker-ce-cli
 
 sudo systemctl start docker
 
-# Verify that Docker Engine is installed correctly by running the hello-world image.
+# Verify that Docker Engine is installed correctly by running the apache server image.
 
-sudo docker run hello-world
+sudo setenforce 0
+mkdir -p /var/www/html
+echo hello from docker >> /var/www/html/index.html
+docker run -d -p 8080:80 --name="myapache" -v /var/www/html:/var/www/html httpd
+
+docker ps
+ss -tunap | grep 8080
+
+curl http://localhost:8080
 
 echo 'Docker also provides convenience scripts at get.docker.com and test.docker.com for installing edge and testing versions of Docker Engine - Community into development environments quickly and non-interactively.'
