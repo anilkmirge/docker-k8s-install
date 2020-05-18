@@ -1,4 +1,6 @@
 #!/bin/sh
+# Run them as root
+sudo su
 
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -12,25 +14,31 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-sudo systemctl enable --now kubelet
+systemctl enable --now kubelet
 
 echo 'Verifying the kubeadm version'
 kubeadm version -o short 
 
 echo 'Disabling swap in order for the kubelet to work properly.'
-sudo swapoff -a
-sudo kubeadm init --kubernetes-version $(kubeadm version -o short) --pod-network-cidr=192.168.0.0/16 | tee /tmp/kubeinit.log
+swapoff -a
+kubeadm init --kubernetes-version $(kubeadm version -o short) --pod-network-cidr=192.168.0.0/16 | tee /tmp/kubeinit.log
 
 echo 'To start using your cluster, running some more commands as a regular user'
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# To make kubectl work for your root user, you can run
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+# To make kubectl work for your non-root user, run these commands, which are also part of the kubeadm init output:
+
+# mkdir -p $HOME/.kube
+# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 #Then you can join any number of worker nodes by running the following on each as root:
 
