@@ -14,7 +14,7 @@ sudo yum-config-manager \
 sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 
 # Now you can install Docker on CentOS/RHEL 8 without any issue.
-sudo yum install docker-ce docker-ce-cli
+sudo yum install -y docker-ce docker-ce-cli
 
 # Start Docker.
 
@@ -26,7 +26,7 @@ echo 'Docker also provides convenience scripts at get.docker.com and test.docker
 
 sudo setenforce 0
 sudo mkdir -p /var/www/html
-echo hello from docker >> /var/www/html/index.html
+sudo echo hello from docker >> /var/www/html/index.html
 sudo docker run -d -p 8080:80 --name="myapache" -v /var/www/html:/var/www/html httpd
 
 sudo docker ps
