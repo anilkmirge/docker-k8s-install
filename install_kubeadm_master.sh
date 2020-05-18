@@ -57,6 +57,6 @@ echo 'Calico will automatically detect which IP address range to use for pod IPs
 
 kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 
-echo' Once a Pod network has been installed, you can confirm that it is working by checking that the CoreDNS Pod is Running in the output of kubectl get pods --all-namespaces.'
+echo 'Once a Pod network has been installed, you can confirm that it is working by checking that the CoreDNS Pod is Running in the output of kubectl get pods --all-namespaces.'
 
 kubectl get pods --all-namespaces.
