@@ -1,6 +1,6 @@
-#!/bin/sh
-# Run them as root
-sudo su
+#!/bin/bash
+
+echo 'ALERT:: Make sure you call this script as sudo. For eg., sudo ./install_kubeadm_worker.sh'
 
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

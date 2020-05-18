@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-# Run them as root
-sudo su
+echo 'ALERT:: Make sure you call this script as sudo. For eg., sudo ./install_docker_ce.sh'
+
 # Install the yum-utils package (which provides the yum-config-manager utility) and set up the stable repository.
 
 yum install -y yum-utils
